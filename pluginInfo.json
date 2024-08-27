@@ -1,13 +1,18 @@
 {
 	"repoName": "fpp-plugin-XR18VolumeControl",
 	"name": "XR18 Volume Control Plugin",
-	"author": "Your Name",
+	"author": "Alexander Woolum",
 	"description": "Synchronizes FPP volume control with Behringer XR18 mixer via MIDI.",
-	"allowUpdates": 0,
+	"homeURL": "adeptevents.com",
+	"srcURL": "https://github.com/burnt-past/fpp-XR18VolumeContro",
+	"bugURL": "https://github.com/burnt-past/fpp-XR18VolumeContro/issues",
+	"allowUpdates": 1,
 	"versions": [
 		{
 			"minFPPVersion": "5.0",
-			"maxFPPVersion": "0"
+			"maxFPPVersion": "0",
+			"branch": "master",
+			"sha": ""
 		}
 	]
 }
