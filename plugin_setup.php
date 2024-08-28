@@ -1,10 +1,13 @@
 <?php
 $pluginName = "XR18VolumeControl";
-$scriptPath = "/home/fpp/media/plugins/$pluginName/poll_volume.sh";
+$scriptPath1 = "/home/fpp/media/plugins/$pluginName/Scripts/poll_volume.sh";
+$scriptPath2 = "/home/fpp/media/plugins/$pluginName/Scripts/midi_listener.sh";
 
 // Ensure the script is executable
-chmod($scriptPath, 0755);
+chmod($scriptPath1, 0755);
+chmod($scriptPath2, 0755);
 
 // Start the script
-exec("$scriptPath > /dev/null 2>&1 &");
+exec("$scriptPath1 > /dev/null 2>&1 &");
+exec("$scriptPath2 > /dev/null 2>&1 &");
 ?>
