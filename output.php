@@ -59,3 +59,28 @@ if ($volume !== null) {
 } else {
     echo "Failed to retrieve volume from FPP API.";
 }
+
+function handleMidiVolumeChange($midiVolume)
+{
+    // Convert MIDI value (0-127) to FPP volume (0-100)
+    $fppVolume = intval($midiVolume * 100 / 127);
+
+    // Update the system volume in FPP via the API
+    $api_url = "http://localhost/api/system/volume";
+    $data = array('volume' => $fppVolume);
+    $options = array(
+        'http' => array(
+            'header'  => "Content-type: application/json\r\n",
+            'method'  => 'POST',
+            'content' => json_encode($data),
+        ),
+    );
+    $context  = stream_context_create($options);
+    $result = file_get_contents($api_url, false, $context);
+
+    if ($result === FALSE) {
+        echo "Failed to update FPP volume.";
+    } else {
+        echo "FPP volume updated to $fppVolume.";
+    }
+}
