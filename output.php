@@ -32,11 +32,11 @@ function sendMidiCommand($volume)
     $context  = stream_context_create($options);
     $result = file_get_contents($api_url, false, $context);
 
-    // Log result for debugging
+    // Echo result for debugging
     if ($result === FALSE) {
-        error_log("Failed to update system volume in FPP.");
+        echo "Failed to update system volume in FPP.";
     } else {
-        error_log("System volume updated to $volume.");
+        echo "System volume updated to $volume.";
     }
 }
 
@@ -57,5 +57,5 @@ $volume = getFppVolume();
 if ($volume !== null) {
     sendMidiCommand($volume);
 } else {
-    error_log("Failed to retrieve volume from FPP API.");
+    echo "Failed to retrieve volume from FPP API.";
 }
