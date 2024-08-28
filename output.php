@@ -16,16 +16,36 @@ function sendMidiCommand($volume)
     $midiValue = convertVolumeToMidi($volume);
     $command = "amidi -p $MIDI_DEVICE -S 'B0 $CHANNEL_FADER_CC $midiValue'";
 
-    // Execute the command
+    // Execute the MIDI command
     exec($command);
+
+    // Update the system volume in FPP
+    $api_url = "http://localhost/api/system/volume";
+    $data = array('volume' => $volume);
+    $options = array(
+        'http' => array(
+            'header'  => "Content-type: application/json\r\n",
+            'method'  => 'POST',
+            'content' => json_encode($data),
+        ),
+    );
+    $context  = stream_context_create($options);
+    $result = file_get_contents($api_url, false, $context);
+
+    // Log result for debugging
+    if ($result === FALSE) {
+        error_log("Failed to update system volume in FPP.");
+    } else {
+        error_log("System volume updated to $volume.");
+    }
 }
 
 function getFppVolume()
 {
-    $api_url = "http://localhost/api/fppd/volume";
+    $api_url = "http://localhost/api/system/volume";
     $json = file_get_contents($api_url);
     $data = json_decode($json, true);
-    if ($data['Status'] == 'OK') {
+    if ($data['status'] == 'OK') {
         return intval($data['volume']);
     }
     return null;
