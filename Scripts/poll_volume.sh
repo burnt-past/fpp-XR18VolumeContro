@@ -20,5 +20,5 @@ while true; do
     fi
 
     # Sleep for a short time before polling again
-    sleep 1
+    sleep 5
 done
