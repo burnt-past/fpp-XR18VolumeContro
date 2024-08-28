@@ -1,16 +1,10 @@
 <?php
-
-// Plugin setup script for XR18 Volume Control Plugin
 $pluginName = "XR18VolumeControl";
+$scriptPath = "/home/fpp/media/plugins/$pluginName/poll_volume.sh";
 
-if (isset($settings['fppMode']) && $settings['fppMode'] != "master") {
-    return;
-}
+// Ensure the script is executable
+chmod($scriptPath, 0755);
 
-// Register the callbacks script
-$callbackScript = $settings['pluginDirectory'] . "/$pluginName/callbacks.sh";
-$pluginUpdateScript = $settings['pluginDirectory'] . "/$pluginName/update.sh";
-
-// Register scripts with FPP
-register_plugin_callback($pluginName, $callbackScript, true);
-register_plugin_callback($pluginName . "_update", $pluginUpdateScript, true);
+// Start the script
+exec("$scriptPath > /dev/null 2>&1 &");
+?>
